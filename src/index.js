@@ -1,9 +1,6 @@
 window.onload = function () {
             getUserPosition().then(position=>{
-                const map = new google.maps.Map(document.getElementById('map'),{
-                    zoom:15,
-                    center : {lat:position.coords.latitude,lng:position.coords.longitude}
-                });
+                const map = initMap(position)
             }).catch(err=>{
                 // display error message when user deny access to his location
                 const locationErrorElement  = document.querySelector('.location-error');
@@ -15,6 +12,28 @@ function getUserPosition() {
             window.navigator.geolocation.getCurrentPosition(resolve,reject)
         })
 }
-function initMap(location) {
-
+function initMap(position) {
+    const userLocation = {lat:position.coords.latitude,lng:position.coords.longitude};
+    const map = new google.maps.Map(document.getElementById('map'),{
+        zoom:15,
+        center :userLocation
+    });
+    const marker = new google.maps.Marker({
+        position:userLocation,
+        map,
+        icon :{
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: 'red',
+            fillOpacity: 0.5,
+            scale: 20,
+            strokeColor: 'blue',
+            strokeWeight: 1,
+            zIndex: 1
+        }
+    })
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(()=>{
+        marker.setAnimation(null) ;
+    },500)
+    return map ;
 }
