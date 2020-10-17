@@ -1,6 +1,8 @@
 window.onload = function () {
+            let app = new App();
             getUserPosition().then(position=>{
                 const map = initMap(position)
+                app.setMap(map) ;
             }).catch(err=>{
                 // display error message when user deny access to his location
                 const locationErrorElement  = document.querySelector('.location-error');
