@@ -1,5 +1,6 @@
 window.onload = function () {
             let app = new App();
+            const saveNewRestaurantButton = document.getElementById('save_restaurant_button');
             getUserPosition().then(position=>{
                 const map = initMap(position)
                 app.setMap(map) ;
@@ -8,6 +9,22 @@ window.onload = function () {
                 const locationErrorElement  = document.querySelector('.location-error');
                 locationErrorElement.style.display = 'block' ;
             })
+    saveNewRestaurantButton.addEventListener('click',()=>{
+        const restaurantName = document.getElementById('restaurant_name');
+        const restaurantAddress = document.getElementById('restaurant_address');
+        if (!restaurantName.value || !restaurantAddress.value){
+            alert('all inputs are required please fill them')
+            return ;
+        }
+        app.createNewRestaurant(restaurantName,restaurantAddress) ;
+
+        // clear the form
+        restaurantName.value = '' ;
+        restaurantAddress.value = '';
+        // close the model
+        document.querySelector('.modal-overlay').style.display = 'none' ;
+
+    })
 }
 
 /**
