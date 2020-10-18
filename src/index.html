@@ -1,51 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Restaurants Review</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <style>
-        #map {
-            height: 500px;
-        }
-    </style>
-</head>
-<body>
-<h1>Hello to my app</h1>
-<section id="map">
-<div class="location-error">
-    <p>Sorry We don't get permission to see your location please allow access to your location and reaload</p>
-</div>
-</section>
-<!--used to create a simple modals for inserting new restaurants-->
-<section class="modal-overlay">
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create New Restaurant</h5>
-                    <button id="close_modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="restaurant_name">Restaurant Name</label>
-                    <input id="restaurant_name" class="form-control" type="text" />
-                    <label for="restaurant_address">RestaurantAddress</label>
-                    <textarea id="restaurant_address" class="form-control"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button id="close_modal_button" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="save_restaurant_button" type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<script src="App.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94wtYbbU7JEsO8XIF9sJpMTAlBsBVti0&libraries=places" defer></script>
-<script src="index.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Restaurants Review</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<style>
+			#map {
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body oncontextmenu="return false;">
+		<h1>Hello to my app</h1>
+		<section class="container-fluid">
+			<div class="row">
+				<div class="col-md-8">
+					<section id="map">
+						<div class="location-error">
+							<p>
+								Sorry We don't get permission to see your location please allow
+								access to your location and reaload
+							</p>
+						</div>
+					</section>
+				</div>
+				<div class="col-md-4">
+					<section>
+						<h2>Restaurants List</h2>
+					</section>
+				</div>
+			</div>
+		</section>
+
+		<!--used to create a simple modals for inserting new restaurants-->
+		<section class="modal-overlay">
+			<div class="modal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Create New Restaurant</h5>
+							<button
+								id="close_modal"
+								type="button"
+								class="close"
+								data-dismiss="modal"
+								aria-label="Close"
+							>
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<label for="restaurant_name">Restaurant Name</label>
+							<input id="restaurant_name" class="form-control" type="text" />
+							<label for="restaurant_address">RestaurantAddress</label>
+							<textarea id="restaurant_address" class="form-control"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button
+								id="close_modal_button"
+								type="button"
+								class="btn btn-secondary"
+								data-dismiss="modal"
+							>
+								Close
+							</button>
+							<button
+								id="save_restaurant_button"
+								type="button"
+								class="btn btn-primary"
+							>
+								Save
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script src="js/modal.js"></script>
+		<script src="App.js"></script>
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94wtYbbU7JEsO8XIF9sJpMTAlBsBVti0&libraries=places"
+			defer
+		></script>
+		<script src="index.js"></script>
+	</body>
 </html>
