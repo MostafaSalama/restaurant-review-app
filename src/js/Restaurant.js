@@ -3,7 +3,7 @@ class Restaurant {
 	 *
 	 * @param name {string}
 	 * @param address {string}
-	 * @param position {{lat:number,long:number}}
+	 * @param position {{lat:number,lng:number}}
 	 * @param ratings {[]}
 	 */
 	constructor(name, address, position, ratings = []) {
