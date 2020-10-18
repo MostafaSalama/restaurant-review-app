@@ -9,11 +9,22 @@ window.onload = function () {
                 locationErrorElement.style.display = 'block' ;
             })
 }
+
+/**
+ * get the user location with geolocation API
+ * using promises
+ * @returns {Promise<Position>}
+ */
 function getUserPosition() {
         return new Promise((resolve, reject) => {
             window.navigator.geolocation.getCurrentPosition(resolve,reject)
         })
 }
+
+/**
+ * create and return a new google map
+ * @param position {Position}
+ */
 function initMap(position) {
     const userLocation = {lat:position.coords.latitude,lng:position.coords.longitude};
     const map = new google.maps.Map(document.getElementById('map'),{
