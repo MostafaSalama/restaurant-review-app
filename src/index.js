@@ -1,30 +1,54 @@
+let app = new App();
 window.onload = function () {
-            let app = new App();
-            const saveNewRestaurantButton = document.getElementById('save_restaurant_button');
-            getUserPosition().then(position=>{
-                const map = initMap(position)
-                app.setMap(map) ;
-            }).catch(err=>{
-                // display error message when user deny access to his location
-                const locationErrorElement  = document.querySelector('.location-error');
-                locationErrorElement.style.display = 'block' ;
-            })
-    saveNewRestaurantButton.addEventListener('click',()=>{
+    const saveNewRestaurantButton = document.getElementById('save_restaurant_button');
+    const minStarsElement = document.getElementById('rating_sort_1');
+    const maxStartsElement = document.getElementById('rating_sort_2');
+
+    getUserPosition().then(currentPosition => {
+        const [map, userLocation] = initMap(currentPosition)
+        console.log(map);
+        app.setMap(map, userLocation);
+    }).catch(err => {
+        console.log(err);
+        // display error message when user deny access to his location
+        const locationErrorElement = document.querySelector('.location-error');
+        console.log(locationErrorElement);
+        locationErrorElement.style.display = 'block';
+    })
+
+    /**
+     * event listeners
+     */
+    saveNewRestaurantButton.addEventListener('click', () => {
         const restaurantName = document.getElementById('restaurant_name');
         const restaurantAddress = document.getElementById('restaurant_address');
-        if (!restaurantName.value || !restaurantAddress.value){
+        if (!restaurantName.value || !restaurantAddress.value) {
             alert('all inputs are required please fill them')
-            return ;
+            return;
         }
-        app.createNewRestaurant(restaurantName,restaurantAddress) ;
+        app.createNewRestaurant(restaurantName, restaurantAddress);
 
         // clear the form
-        restaurantName.value = '' ;
+        restaurantName.value = '';
         restaurantAddress.value = '';
         // close the model
-        document.querySelector('.modal-overlay').style.display = 'none' ;
+        document.querySelector('.modal-overlay').style.display = 'none';
 
     })
+    minStarsElement.addEventListener('change',starChange)
+    maxStartsElement.addEventListener('change',starChange)
+    function starChange() {
+        const minValue = parseInt(minStarsElement.value);
+        const maxValue = parseInt(maxStartsElement.value);
+
+        if ((minValue >= 1 && minValue <= 5)
+            && (maxValue >= 1 && maxValue <= 5)
+            && minValue <= maxValue) {
+            app.minStars = minValue;
+            app.maxStars = maxValue;
+            app.filterRestaurants()
+        }
+    }
 }
 
 /**
@@ -33,9 +57,9 @@ window.onload = function () {
  * @returns {Promise<Position>}
  */
 function getUserPosition() {
-        return new Promise((resolve, reject) => {
-            window.navigator.geolocation.getCurrentPosition(resolve,reject)
-        })
+    return new Promise((resolve, reject) => {
+        window.navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
 }
 
 /**
@@ -43,15 +67,15 @@ function getUserPosition() {
  * @param position {Position}
  */
 function initMap(position) {
-    const userLocation = {lat:position.coords.latitude,lng:position.coords.longitude};
-    const map = new google.maps.Map(document.getElementById('map'),{
-        zoom:15,
-        center :userLocation
+    const userLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: userLocation
     });
     const marker = new google.maps.Marker({
-        position:userLocation,
+        position: userLocation,
         map,
-        icon :{
+        icon: {
             path: google.maps.SymbolPath.CIRCLE,
             fillColor: 'red',
             fillOpacity: 0.5,
@@ -62,8 +86,9 @@ function initMap(position) {
         }
     })
     marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(()=>{
-        marker.setAnimation(null) ;
-    },500)
-    return map ;
+    setTimeout(() => {
+        marker.setAnimation(null);
+    }, 500)
+    return [map, userLocation];
 }
+

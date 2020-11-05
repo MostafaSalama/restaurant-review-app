@@ -6,6 +6,7 @@
 		<title>Restaurants Review</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style>
 			#map {
 				height: 500px;
@@ -15,6 +16,21 @@
 	<body oncontextmenu="return false;">
 		<h1>Hello to my app</h1>
 		<section class="container-fluid">
+			<div class="row">
+				<div class="col-md4 offset-8">
+					<span class="text-primary font-weight-bolder">Filter With Rating</span>
+					<span class="ml-2">
+						<label>
+							Min
+							<input type="number" value="1" min="1" max="5" id="rating_sort_1" />
+						</label>
+						<label>
+							Max
+							<input type="number" value="5" min="1" max="5" id="rating_sort_2" />
+						</label>
+					</span>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-8">
 					<section id="map">
@@ -28,7 +44,8 @@
 				</div>
 				<div class="col-md-4">
 					<section>
-						<h2>Restaurants List</h2>
+						<ul class="list-group" id="restaurant_list_container">
+						</ul>
 					</section>
 				</div>
 			</div>
@@ -78,6 +95,8 @@
 				</div>
 			</div>
 		</section>
+		<script src="js/UI.js"></script>
+		<script src="js/util.js"></script>
 		<script src="js/modal.js"></script>
 		<script src="js/Restaurant.js"></script>
 		<script src="App.js"></script>
