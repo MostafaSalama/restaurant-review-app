@@ -8,3 +8,24 @@
 .modal-overlay {
     display: none;
 }
+#restaurant_list_container {
+    height: 500px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.restaurant-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.image-container > img {
+    width: 100px;
+    height: 100px;
+}
+.restaurant-body {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+.checked {
+    color:orange;
+}
