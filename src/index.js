@@ -26,7 +26,7 @@ window.onload = function () {
             alert('all inputs are required please fill them')
             return;
         }
-        app.createNewRestaurant(restaurantName, restaurantAddress);
+        app.createNewRestaurant(restaurantName.value, restaurantAddress.value);
 
         // clear the form
         restaurantName.value = '';

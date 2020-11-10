@@ -10,6 +10,9 @@ class Restaurant {
 		this.address = address;
 		this.position = position;
 		this.userRatings = [] ;
+		/**
+		 * @type {number}
+		 */
 		this.rating = this.calRating() ;
 		this.id = window.generateRandomId()
 	}

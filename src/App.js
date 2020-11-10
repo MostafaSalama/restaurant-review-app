@@ -64,6 +64,7 @@ class App {
 			newRestaurantAddress,
 			restPosition,
 		);
+		restaurant.rating = 1 ;
 		this.userRestaurants.push(restaurant);
 		const marker = new google.maps.Marker({
 			map: this.map,
@@ -71,7 +72,9 @@ class App {
 			id:restaurant.id,
 			placesId:restaurant.id
 		});
+		console.log(restaurant);
 		this.userMarkers.push(marker) ;
+		this.filterRestaurants();
 	}
 	findPlaces(){
 		this.clearRestaurants();
@@ -117,7 +120,7 @@ class App {
 		const result = [...this.filteredUserRestaurants,...this.filteredRestaurants];
 		console.log(`result`);
 		console.log(result)
-		UI.displayRestaurant(result) ;
+		UI.displayRestaurant(result,this.places) ;
 	}
 
 	async initUserRestaurants() {
@@ -136,7 +139,7 @@ class App {
 			console.log(r);
 			this.userRestaurants.push(r);
 			this.userMarkers.push(marker) ;
-			UI.displayRestaurant([...this.userRestaurants,...this.mapRestaurants,])
+			UI.displayRestaurant([...this.userRestaurants,...this.mapRestaurants,],this.places)
 		}
 	}
 }
