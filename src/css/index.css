@@ -29,3 +29,6 @@
 .checked {
     color:orange;
 }
+.item {
+    cursor: pointer;
+}

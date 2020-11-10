@@ -1,0 +1,61 @@
+[
+  {
+    "restaurantName":"Bronco",
+    "address":"39 Rue des Petites Écuries, 75010 Paris",
+    "id": "fake1",
+    "location": {"lat":30.256796782716673,"lng":30.959952944194054},
+    "ratings":[
+      {
+        "stars":4,
+        "comment":"Wow great experience",
+        "username": "user1"
+      },
+      {
+        "stars":5,
+        "comment":"Best Of Them",
+        "username": "user1"
+
+      }
+    ]
+  },
+  {
+    "restaurantName":"Babalou",
+    "address":"4 Rue Lamarck, 75018 myCity",
+    "id": "fake2",
+    "locations": {"lat":30.17591999366788,"lng":31.146119177787764},
+    "ratings":[
+      {
+        "stars":3,
+        "comment":"Not The best but its good",
+        "username": "user1"
+
+      },
+      {
+        "stars":5,
+        "comment":"Best of them",
+        "username": "user3"
+
+      }
+    ]
+  },
+  {
+    "restaurantName":"Food Me",
+    "address":"39 Rue des Petites Giza, 75010 Cairo",
+    "id": "fake3",
+    "location": {"lat":30.216572895243182,"lng":31.175988257377607},
+    "ratings":[
+      {
+        "stars":4,
+        "comment":"Great! But not many veggie options.",
+        "username": "user fake"
+
+      },
+      {
+        "stars":5,
+        "comment":"My favorite restaurant!",
+        "username": "user b"
+
+      }
+    ]
+  }
+]

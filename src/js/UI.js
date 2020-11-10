@@ -6,7 +6,11 @@ class UI {
         UI.clear(containerList)
         restaurants.forEach(restaurant=>{
             const li = document.createElement('li');
-            li.className = 'list-group-item';
+            li.className = 'list-group-item item';
+            li.addEventListener('click',()=>{
+                document.getElementById('rest_info_name').scrollIntoView({behavior:"smooth"})
+                UI.displayRestaurantInfo(restaurant);
+            })
             li.innerHTML = UI.createRestaurantHTMLContent(restaurant) ;
             containerList.insertAdjacentElement(position,li);
         })
@@ -48,5 +52,13 @@ class UI {
             starContent+='<span class="fa fa-star"></span>'
         }
         return starContent ;
+    }
+
+    static displayRestaurantInfo(restaurant) {
+        const nameElement = document.getElementById('rest_info_name');
+        const addressElement = document.getElementById('rest_info_address');
+        nameElement.innerText = restaurant.name ;
+        addressElement.innerText = restaurant.address || restaurant.vicinity ;
+
     }
 }

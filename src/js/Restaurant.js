@@ -10,7 +10,14 @@ class Restaurant {
 		this.address = address;
 		this.position = position;
 		this.userRatings = [] ;
-		this.rating = 0 ;
+		this.rating = this.calRating() ;
 		this.id = window.generateRandomId()
+	}
+	calRating(){
+		let sum = 0 ;
+		for(let rating of this.userRatings) {
+			sum+=rating.stars;
+		}
+		this.rating = sum / this.userRatings.length || 0 ;
 	}
 }
