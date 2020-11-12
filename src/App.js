@@ -6,6 +6,7 @@ class App {
 		this.markers = [] ;
 		this.userMarkers = [] ;
 		this.userRestaurants = [] ;
+		this.currentRestaurants = [];
 		this.currrentLocation = '';
 		this.newRestaurantName = '';
 		this.newRestaurantAddress = '';
@@ -13,6 +14,8 @@ class App {
 		this.filteredRestaurants = [] ;
 		this.minStars = 1 ;
 		this.maxStars= 5
+		this.displayUserRestaurantsOnly = false;
+		this.displayUserRestaurantsOnlyElement = document.getElementById('display_user_restaurants_checkbox');
 	}
 	async setMap(map,position) {
 		this.map = map;
@@ -78,6 +81,8 @@ class App {
 		this.filterRestaurants();
 	}
 	findPlaces(){
+		this.displayUserRestaurantsOnly = false;
+		this.displayUserRestaurantsOnlyElement.checked = false ;
 		this.clearRestaurants();
 		this.clearMarkers();
 		const bounds = {
@@ -118,10 +123,12 @@ class App {
 	filterRestaurants(){
 		this.filteredRestaurants = this.mapRestaurants.filter(rest=>rest.rating >= this.minStars && rest.rating <=this.maxStars);
 		this.filteredUserRestaurants = this.userRestaurants.filter(rest=>rest.rating >= this.minStars && rest.rating <=this.maxStars);
-		const result = [...this.filteredUserRestaurants,...this.filteredRestaurants];
-		console.log(`result`);
-		console.log(result)
-		UI.displayRestaurant(result,this.places) ;
+		this.currentRestaurants = [...this.filteredUserRestaurants,...this.filteredRestaurants];
+		if(this.displayUserRestaurantsOnly) {
+			this.currentRestaurants = [...this.filteredUserRestaurants];
+			this.clearMarkers() ;
+		}
+		UI.displayRestaurant(this.currentRestaurants,this.places) ;
 	}
 
 	async initUserRestaurants() {

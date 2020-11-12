@@ -4,6 +4,7 @@ window.onload = function () {
     const minStarsElement = document.getElementById('rating_sort_1');
     const maxStartsElement = document.getElementById('rating_sort_2');
     const addReviewForm = document.getElementById('review_form');
+    const displayUserRestaurantsCheckBox = document.getElementById('display_user_restaurants_checkbox');
     getUserPosition().then(currentPosition => {
         const [map, userLocation] = initMap(currentPosition)
         console.log(map);
@@ -88,6 +89,14 @@ window.onload = function () {
         document.getElementById('restaurant_info').scrollIntoView({
             behavior: "smooth"
         });
+    })
+    /**
+     * if the user checks the checkbox
+     * we need to display only user restaurants, else we display all restaurants
+     */
+    displayUserRestaurantsCheckBox.addEventListener('change',(e)=>{
+                app.displayUserRestaurantsOnly = e.target.checked ;
+                app.filterRestaurants();
     })
 }
 

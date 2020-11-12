@@ -18,8 +18,9 @@
 		<section class="container-fluid">
 			<div class="row">
 				<div class="col-md4 offset-8">
-					<span class="text-primary font-weight-bolder">Filter With Rating</span>
-					<span class="ml-2">
+					<div>
+						<span class="text-primary font-weight-bolder">Filter With Rating</span>
+						<span class="ml-2">
 						<label>
 							Min
 							<input type="number" value="1" min="1" max="5" id="rating_sort_1" />
@@ -29,6 +30,13 @@
 							<input type="number" value="5" min="1" max="5" id="rating_sort_2" />
 						</label>
 					</span>
+					</div>
+					<div>
+						<span class="text-primary font-weight-bold">Display only my created restaurants</span>
+						<label>
+							<input type="checkbox" id="display_user_restaurants_checkbox" />
+						</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
