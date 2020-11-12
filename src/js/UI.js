@@ -8,12 +8,18 @@ class UI {
             const li = document.createElement('li');
             li.className = 'list-group-item item';
             li.addEventListener('click',()=>{
+                App.currentRestaurant = restaurant ;
+                document.getElementById('restaurant_reviews').style.display ='block';
                 document.getElementById('rest_info_name').scrollIntoView({behavior:"smooth"})
                 UI.displayRestaurantInfo(restaurant)
                 if(restaurant.address){
                     UI.displayUserRestaurantReviews(restaurant.userRatings);
                 }
                 if(restaurant.vicinity) {
+                    if(restaurant.reviews){
+                        UI.displayGoogleRestaurantReviews(restaurant.reviews);
+                        return ;
+                    }
                     places.getDetails({
                         placeId: restaurant.place_id
                     },(place,status)=>{
@@ -21,6 +27,8 @@ class UI {
                         if (status !== google.maps.places.PlacesServiceStatus.OK) {
                             return;
                         }
+
+                        restaurant.reviews = place.reviews ;
                         UI.displayGoogleRestaurantReviews(place.reviews);
                     })
 
@@ -41,7 +49,7 @@ class UI {
         const {photos} = restaurant ;
         let starContent = UI.getRatingContent(Math.round(restaurant.rating));
 
-        const imageSrc = photos? photos[0].getUrl({ maxWidth: 100})+'.png' : 'images/food.svg'
+        const imageSrc = photos? photos[0].getUrl()+'.png' : 'images/food.svg'
         console.log(imageSrc);
         let str = `
         <div class="restaurant-container">

@@ -3,7 +3,7 @@ window.onload = function () {
     const saveNewRestaurantButton = document.getElementById('save_restaurant_button');
     const minStarsElement = document.getElementById('rating_sort_1');
     const maxStartsElement = document.getElementById('rating_sort_2');
-
+    const addReviewForm = document.getElementById('review_form');
     getUserPosition().then(currentPosition => {
         const [map, userLocation] = initMap(currentPosition)
         console.log(map);
@@ -35,8 +35,9 @@ window.onload = function () {
         document.querySelector('.modal-overlay').style.display = 'none';
 
     })
-    minStarsElement.addEventListener('change',starChange)
-    maxStartsElement.addEventListener('change',starChange)
+    minStarsElement.addEventListener('change', starChange)
+    maxStartsElement.addEventListener('change', starChange)
+
     function starChange() {
         const minValue = parseInt(minStarsElement.value);
         const maxValue = parseInt(maxStartsElement.value);
@@ -49,6 +50,45 @@ window.onload = function () {
             app.filterRestaurants()
         }
     }
+
+    /**
+     * submit form when the user enter his own review
+     * we need to append this data to the review of the restaurants
+     */
+    addReviewForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('user_new_review_name');
+        const comment = document.getElementById('user_new_review_text');
+        const stars = document.getElementById('user_new_review_rating');
+        console.log(App.currentRestaurant)
+        // a google restaurant
+        if (App.currentRestaurant.vicinity) {
+            App.currentRestaurant.reviews = [{
+                author_name: username.value,
+                text: comment.value,
+                rating: parseInt(stars.value)
+            }, ...App.currentRestaurant.reviews]
+            UI.displayGoogleRestaurantReviews(App.currentRestaurant.reviews);
+            username.value = '';
+            comment.value = '';
+            stars.value = '1';
+            document.getElementById('restaurant_info').scrollIntoView({
+                behavior: "smooth"
+            });
+            return;
+        }
+        App.currentRestaurant.userRatings =
+            [{username: username.value, comment: comment.value, stars:parseInt( stars.value)},
+                ...App.currentRestaurant.userRatings];
+        App.currentRestaurant.calRating();
+        UI.displayUserRestaurantReviews(App.currentRestaurant.userRatings);
+        username.value = '';
+        comment.value = '';
+        stars.value = '1';
+        document.getElementById('restaurant_info').scrollIntoView({
+            behavior: "smooth"
+        });
+    })
 }
 
 /**

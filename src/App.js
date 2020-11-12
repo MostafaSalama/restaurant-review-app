@@ -1,4 +1,5 @@
 class App {
+	static currentRestaurant = null ;
 	constructor() {
 		/** @type {[Restaurant]} */
 		this.mapRestaurants = [];
