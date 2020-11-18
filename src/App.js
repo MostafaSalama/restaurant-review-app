@@ -74,6 +74,7 @@ class App {
         restaurant.userRatings.push(review);
         restaurant.calRating() ;
         this.userRestaurants.push(restaurant);
+        localStorage.setItem('userRestaurants',JSON.stringify(this.userRestaurants));
         const marker = new google.maps.Marker({
             map: this.map,
             position: restPosition,
@@ -157,6 +158,7 @@ class App {
             });
             console.log(r);
             this.userRestaurants.push(r);
+            localStorage.setItem('userRestaurants',JSON.stringify(this.userRestaurants));
             this.userMarkers.push(marker);
             UI.displayRestaurant([...this.userRestaurants, ...this.mapRestaurants,], this.places)
         }
