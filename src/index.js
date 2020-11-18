@@ -5,6 +5,7 @@ window.onload = function () {
     const maxStartsElement = document.getElementById('rating_sort_2');
     const addReviewForm = document.getElementById('review_form');
     const displayUserRestaurantsCheckBox = document.getElementById('display_user_restaurants_checkbox');
+    const searchRestaurantsInput = document.getElementById('search_restaurants_input')
     getUserPosition().then(currentPosition => {
         const [map, userLocation] = initMap(currentPosition)
         console.log(map);
@@ -23,11 +24,19 @@ window.onload = function () {
     saveNewRestaurantButton.addEventListener('click', () => {
         const restaurantName = document.getElementById('restaurant_name');
         const restaurantAddress = document.getElementById('restaurant_address');
+        const username = document.getElementById('user_name_restaurant');
+        const userReview = document.getElementById('user_new_restaurant_review');
+        const stars = document.querySelector('[name="new_stars"]:checked');
         if (!restaurantName.value || !restaurantAddress.value) {
             alert('all inputs are required please fill them')
             return;
         }
-        app.createNewRestaurant(restaurantName.value, restaurantAddress.value);
+        app.createNewRestaurant(restaurantName.value, restaurantAddress.value,
+            {
+            username: username.value,
+            stars: stars.value,
+            comment: userReview.value
+        });
 
         // clear the form
         restaurantName.value = '';
@@ -60,8 +69,7 @@ window.onload = function () {
         e.preventDefault();
         const username = document.getElementById('user_new_review_name');
         const comment = document.getElementById('user_new_review_text');
-        const stars = document.getElementById('user_new_review_rating');
-        console.log(App.currentRestaurant)
+        const stars = addReviewForm.querySelector(':checked');
         // a google restaurant
         if (App.currentRestaurant.vicinity) {
             App.currentRestaurant.reviews = [{
@@ -79,7 +87,7 @@ window.onload = function () {
             return;
         }
         App.currentRestaurant.userRatings =
-            [{username: username.value, comment: comment.value, stars:parseInt( stars.value)},
+            [{username: username.value, comment: comment.value, stars: parseInt(stars.value)},
                 ...App.currentRestaurant.userRatings];
         App.currentRestaurant.calRating();
         UI.displayUserRestaurantReviews(App.currentRestaurant.userRatings);
@@ -94,9 +102,13 @@ window.onload = function () {
      * if the user checks the checkbox
      * we need to display only user restaurants, else we display all restaurants
      */
-    displayUserRestaurantsCheckBox.addEventListener('change',(e)=>{
-                app.displayUserRestaurantsOnly = e.target.checked ;
-                app.filterRestaurants();
+    displayUserRestaurantsCheckBox.addEventListener('change', (e) => {
+        app.displayUserRestaurantsOnly = e.target.checked;
+        app.filterRestaurants();
+    })
+    searchRestaurantsInput.addEventListener('input', (e) => {
+        app.searchRestaurantsFilterText = e.target.value;
+        app.filterRestaurants();
     })
 }
 
@@ -118,7 +130,7 @@ function getUserPosition() {
 function initMap(position) {
     const userLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+        zoom: 15,
         center: userLocation
     });
     const marker = new google.maps.Marker({

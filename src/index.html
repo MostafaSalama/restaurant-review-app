@@ -1,155 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Restaurants Review</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/index.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<style>
-			#map {
-				height: 500px;
-			}
-		</style>
-	</head>
-	<body oncontextmenu="return false;">
-		<h1>Hello to my app</h1>
-		<section class="container-fluid">
-			<div class="row">
-				<div class="col-md4 offset-8">
-					<div>
-						<span class="text-primary font-weight-bolder">Filter With Rating</span>
-						<span class="ml-2">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Restaurants Review</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+<h1>Review Restaurants</h1>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md4 offset-8">
+            <div>
+                <span class="text-primary font-weight-bolder">Filter With Rating</span>
+                <span class="ml-2">
 						<label>
 							Min
-							<input type="number" value="1" min="1" max="5" id="rating_sort_1" />
+							<input type="number" value="1" min="1" max="5" id="rating_sort_1"/>
 						</label>
 						<label>
 							Max
-							<input type="number" value="5" min="1" max="5" id="rating_sort_2" />
+							<input type="number" value="5" min="1" max="5" id="rating_sort_2"/>
 						</label>
 					</span>
-					</div>
-					<div>
-						<span class="text-primary font-weight-bold">Display only my created restaurants</span>
-						<label>
-							<input type="checkbox" id="display_user_restaurants_checkbox" />
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<section id="map">
-						<div class="location-error">
-							<p>
-								Sorry We don't get permission to see your location please allow
-								access to your location and reaload
-							</p>
-						</div>
-					</section>
-				</div>
-				<div class="col-md-4">
-					<section>
-						<ul class="list-group" id="restaurant_list_container">
-						</ul>
-					</section>
-				</div>
-			</div>
-		</section>
-		<section class="container-fluid mt-5">
-			<div class="row mt-5">
-				<div class="col-md-6" id="restaurant_info">
-					<h2 id="rest_info_name"></h2>
-					<p id="rest_info_address"></p>
-					<div class="mt-5" id="restaurant_reviews" style="display: none">
-						<h2>Reviews</h2>
-						<div class="list-group" id="reviews">
-						</div>
-						<div class="add-review-form">
-							<h3>Add Review</h3>
-							<form id="review_form">
-								<div class="form-group">
-									<label>Your Name</label>
-									<input required class="form-control" type="text" maxlength="50" id="user_new_review_name" />
-								</div>
-								<div class="form-group">
-									<label for="user_new_review_text">Your Review</label>
-									<textarea required maxlength="150" id="user_new_review_text" class="form-control">
+            </div>
+            <div>
+                <span class="text-primary font-weight-bold">Display only my created restaurants</span>
+                <label>
+                    <input type="checkbox" id="display_user_restaurants_checkbox"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="search" class="form-control"
+                           id="search_restaurants_input" placeholder="search restaurants"/>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="map">
+                <div class="location-error">
+                    <p>
+                        Sorry We don't get permission to see your location please allow
+                        access to your location and reaload
+                    </p>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section>
+                <ul class="list-group" id="restaurant_list_container">
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
+<section class="container-fluid mt-5">
+    <div class="row mt-5">
+        <div class="col-md-6" id="restaurant_info">
+            <h2 id="rest_info_name"></h2>
+            <p id="rest_info_address"></p>
+            <div class="mt-5" id="restaurant_reviews" style="display: none">
+                <h2>Reviews</h2>
+                <div class="list-group" id="reviews">
+                </div>
+                <div class="add-review-form">
+                    <h3>Add Review</h3>
+                    <form id="review_form">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input required class="form-control" type="text" maxlength="50" id="user_new_review_name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_new_review_text">Your Review</label>
+                            <textarea required maxlength="150" id="user_new_review_text" class="form-control">
 
 							</textarea>
-								</div>
-								<div class="form-group">
-									<label for="user_new_review_rating">Rating</label>
-									<input required id="user_new_review_rating" type="number" min="1" max="5">
-								</div>
-								<button class="btn btn-success">Add Review</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6" id="panorama">
-						<div id="panorama_viewer" style="width: 100%;height: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <div class="rating-container">
+                               <div class="rating">
+                                   <input id="demo-1" type="radio" name="demo" value="1">
+                                   <label for="demo-1">1 star</label>
+                                   <input id="demo-2" type="radio" name="demo" value="2">
+                                   <label for="demo-2">2 stars</label>
+                                   <input id="demo-3" type="radio" name="demo" value="3">
+                                   <label for="demo-3">3 stars</label>
+                                   <input id="demo-4" type="radio" name="demo" value="4">
+                                   <label for="demo-4">4 stars</label>
+                                   <input id="demo-5" type="radio" name="demo" value="5">
+                                   <label for="demo-5">5 stars</label>
 
-						</div>
-				</div>
-			</div>
-		</section>
+                                   <div class="stars">
+                                       <label for="demo-1" aria-label="1 star" title="1 star"></label>
+                                       <label for="demo-2" aria-label="2 stars" title="2 stars"></label>
+                                       <label for="demo-3" aria-label="3 stars" title="3 stars"></label>
+                                       <label for="demo-4" aria-label="4 stars" title="4 stars"></label>
+                                       <label for="demo-5" aria-label="5 stars" title="5 stars"></label>
+                                   </div>
+                               </div>
+                            </div>
 
-		<!--used to create a simple modals for inserting new restaurants-->
-		<section class="modal-overlay">
-			<div class="modal" tabindex="-1">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Create New Restaurant</h5>
-							<button
-								id="close_modal"
-								type="button"
-								class="close"
-								data-dismiss="modal"
-								aria-label="Close"
-							>
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<label for="restaurant_name">Restaurant Name</label>
-							<input id="restaurant_name" class="form-control" type="text" />
-							<label for="restaurant_address">RestaurantAddress</label>
-							<textarea id="restaurant_address" class="form-control"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button
-								id="close_modal_button"
-								type="button"
-								class="btn btn-secondary"
-								data-dismiss="modal"
-							>
-								Close
-							</button>
-							<button
-								id="save_restaurant_button"
-								type="button"
-								class="btn btn-primary"
-							>
-								Save
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<script src="js/UI.js"></script>
-		<script src="js/util.js"></script>
-		<script src="js/modal.js"></script>
-		<script src="js/Restaurant.js"></script>
-		<script src="App.js"></script>
-		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94wtYbbU7JEsO8XIF9sJpMTAlBsBVti0&libraries=places"
-			defer
-		></script>
-		<script src="index.js"></script>
-	</body>
+                                                 </div>
+                        <button class="btn btn-success">Add Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" id="panorama">
+            <div id="panorama_viewer" style="width: 100%;height: 100%;">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--used to create a simple modals for inserting new restaurants-->
+<section class="modal-overlay">
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Restaurant</h5>
+                    <button
+                            id="close_modal"
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="restaurant_name">Restaurant Name</label>
+                    <input id="restaurant_name" class="form-control" type="text"/>
+                    <label for="restaurant_address">RestaurantAddress</label>
+                    <textarea id="restaurant_address" class="form-control"></textarea>
+                    <label for="user_name_restaurant">Your Name</label>
+                    <input type="text" name="name" id="user_name_restaurant" class="form-control" />
+                    <label for="user_new_restaurant_review">Review</label>
+                    <textarea id="user_new_restaurant_review" class="form-control"></textarea>
+                    <label class="">Rating</label>
+                    <br>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <input id="demo-11" type="radio" name="new_stars" value="1">
+                            <label for="demo-1">1 star</label>
+                            <input id="demo-22" type="radio" name="new_stars" value="2">
+                            <label for="demo-22">2 stars</label>
+                            <input id="demo-33" type="radio" name="new_stars" value="3">
+                            <label for="demo-33">3 stars</label>
+                            <input id="demo-44" type="radio" name="new_stars" value="4">
+                            <label for="demo-44">4 stars</label>
+                            <input id="demo-55" type="radio" name="new_stars" value="5">
+                            <label for="demo-55">5 stars</label>
+
+                            <div class="stars">
+                                <label for="demo-11" aria-label="1 star" title="1 star"></label>
+                                <label for="demo-22" aria-label="2 stars" title="2 stars"></label>
+                                <label for="demo-33" aria-label="3 stars" title="3 stars"></label>
+                                <label for="demo-44" aria-label="4 stars" title="4 stars"></label>
+                                <label for="demo-55" aria-label="5 stars" title="5 stars"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                            id="close_modal_button"
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    <button
+                            id="save_restaurant_button"
+                            type="button"
+                            class="btn btn-primary"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="js/UI.js"></script>
+<script src="js/util.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/Restaurant.js"></script>
+<script src="App.js"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94wtYbbU7JEsO8XIF9sJpMTAlBsBVti0&libraries=places"
+        defer
+></script>
+<script src="index.js"></script>
+</body>
 </html>
